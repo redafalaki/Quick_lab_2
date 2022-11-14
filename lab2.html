@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promises and Fetch 2</title>
+</head>
+
+<body>
+    <script>
+        const url = 'https://mockyard.herokuapp.com/products';
+
+        fetch(url)
+            .then((response) => response.json())
+            .then(console.log);
+        /*
+        {number: 10, bella: Array(10), message: 'success'}
+            message: "success"
+            number: 10
+            people: Array(10)
+            0: {name: 'Oleg Artemyev', craft: 'ISS'}
+            1: {name: 'Denis Matveev', craft: 'ISS'}
+            2: {name: 'Sergey Korsakov', craft: 'ISS'}
+            3: {name: 'Kjell Lindgren', craft: 'ISS'}
+            4: {name: 'Bob Hines', craft: 'ISS'}
+            5: {name: 'Samantha Cristoforetti', craft: 'ISS'}
+            6: {name: 'Jessica Watkins', craft: 'ISS'}
+            7: {name: 'Cai Xuzhe', craft: 'Tiangong'}
+            8: {name: 'Chen Dong', craft: 'Tiangong'}
+            9: {name: 'Liu Yang', craft: 'Tiangong'}
+            length: 10
+            [[Prototype]]: Array(0)
+            [[Prototype]]: Object
+			
+		*/
+       
+
+        // We can modify the code into a reuseable function:
+        let getAstronautsJsonData = () => fetch(url)
+            .then((response) => response.json())
+
+        getAstronautsJsonData().then((response) => console.log(response));
+        /*
+        For the same reason as mentioned before:
+        Because the then() argument is "response" and what we want to console.log is "response" also
+        So we can omit the "response" and use the shorthand below:
+        */
+       
+        // just try outputting to the document:
+        getAstronautsJsonData().then((data) => {
+            document.write("<h2>Astronaute</h2>");
+            document.write("<ul>")
+			for (object in data){
+			
+            document.write("<li> " + data[object].name + "</li>");
+			}
+            document.write("</ul>");
+        });
+    </script>
+</body>
+
+</html>
